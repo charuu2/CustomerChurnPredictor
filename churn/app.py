@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 app = Flask(__name__)
 
 # Load the trained model
-with open("CustomerChurnPrediction.ipynb", "rb") as f:
+with open("xgboost_modelfinal.pkl", "rb") as f:
     model_data = pickle.load(f)
 
 best_xgb = model_data["model"]
