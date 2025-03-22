@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Churn Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Customer Churn Prediction</h2>
+        <form action="/predict" method="post">
+            <label>Tenure:</label>
+            <input type="number" name="tenure" required>
+
+            <label>Monthly Charges:</label>
+            <input type="number" name="MonthlyCharges" required>
+
+            <label>Total Charges:</label>
+            <input type="number" name="TotalCharges" required>
+
+            <label>Gender (0=Female, 1=Male):</label>
+            <input type="number" name="gender" required>
+
+            <label>Senior Citizen (0=No, 1=Yes):</label>
+            <input type="number" name="SeniorCitizen" required>
+
+            <label>Partner (0=No, 1=Yes):</label>
+            <input type="number" name="Partner" required>
+
+            <label>Dependents (0=No, 1=Yes):</label>
+            <input type="number" name="Dependents" required>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction_text %}
+            <h3>{{ prediction_text }}</h3>
+        {% endif %}
+    </div>
+</body>
+</html>
