@@ -6,18 +6,23 @@ from sklearn.preprocessing import StandardScaler
 # Initialize Flask app
 app = Flask(__name__)
 
-# Load the trained model, feature names, label encoders, and scaler
-with open("customer_churn_model.pkl", "rb") as f:
+# Load the trained model
+with open("CustomerChurnPrediction.ipynb", "rb") as f:
     model_data = pickle.load(f)
 
 best_xgb = model_data["model"]
-feature_names = model_data["feature_names"]
 
-with open("label_encoders.pkl", "rb") as f:
+# Load label encoders
+with open("label_encodersfinal.pkl", "rb") as f:
     label_encoders = pickle.load(f)
 
-with open("scaler.pkl", "rb") as f:
+# Load scaler
+with open("scaler2.pkl", "rb") as f:
     scaler = pickle.load(f)
+
+# Load selected features
+with open("selected_featuresfinal.pkl", "rb") as f:
+    selected_features = pickle.load(f)
 
 # Define categorical and numerical features
 categorical_features = [
@@ -57,8 +62,8 @@ def predict():
         # 3. Scale numerical features
         new_data[numerical_features] = scaler.transform(new_data[numerical_features])
         
-        # 4. Select the same features used during training
-        new_data_selected = new_data[feature_names]
+        # 4. Select only the features used in training
+        new_data_selected = new_data[selected_features]
         
         # Make predictions
         prediction = best_xgb.predict(new_data_selected)
